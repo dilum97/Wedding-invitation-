@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>විවාහ ආරාධනය</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family: 'Noto Serif Sinhala', serif;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* VIDEO BACKGROUND */
+.video-bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+.video-bg video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* DARK OVERLAY */
+.video-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  z-index:-1;
+}
+
+/* CONTAINER */
+.container{
+  max-width:650px;
+  margin:auto;
+  padding:40px 15px;
+  text-align:center;
+}
+
+/* GLASS CARD */
+.card{
+  margin-bottom:25px;
+  padding:30px;
+  border-radius:18px;
+
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border:1px solid rgba(255,255,255,0.2);
+
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.4),
+    inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+/* TEXT */
+.title{
+  font-size:26px;
+  margin-bottom:15px;
+  letter-spacing:1px;
+  opacity:0.9;
+}
+
+.name{
+  font-size:38px;
+  font-weight:700;
+  margin:12px 0;
+  letter-spacing:1px;
+}
+
+.small{
+  font-size:14px;
+  opacity:0.85;
+  line-height:1.7;
+}
+
+.highlight{
+  font-size:22px;
+  margin:12px 0;
+  font-weight:600;
+}
+
+.section-title{
+  font-size:18px;
+  margin-bottom:10px;
+  letter-spacing:1px;
+}
+
+/* BUTTON */
+.map-btn{
+  display:inline-block;
+  padding:10px 20px;
+  margin-top:10px;
+  background:#fff;
+  color:#000;
+  text-decoration:none;
+  font-weight:bold;
+  border-radius:6px;
+}
+
+/* CONTACT SPECIAL */
+.contact-card{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.3);
+
+  box-shadow:
+    0 0 30px rgba(255,255,255,0.15),
+    inset 0 0 20px rgba(255,255,255,0.08);
+}
+
+.contact-number{
+  font-size:18px;
+  margin:6px 0;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* COUNTDOWN */
+#countdown{
+  font-size:20px;
+  margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<div class="video-bg">
+  <video autoplay muted loop>
+    <source src="download.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="video-overlay"></div>
+
+<div class="container">
+
+  <!-- MAIN -->
+  <div class="card">
+
+    <div class="title">ශ්‍රී සුභ මංගලම්</div>
+
+    <p class="small">
+      අසෝක සුදුසිංහ මහතා හා මහත්මියගේ ආදරණීය පුත්‍රයා වන
+    </p>
+
+    <div class="name">දිලුම්</div>
+
+    <p class="small">M.H. ප්‍රේමතිලක මහතා හා මහත්මියගේ ආදරණීය දියණිය</p>
+
+    <div class="name">තිලිනි</div>
+
+    <p class="small">
+       සමඟ අතිනත ගැනීම
+    </p>
+
+    <div class="highlight">2026 ජූනි 04 · බ්‍රහස්පතින්දා</div>
+
+    <p>පෙ.ව. 8.00 සිට ප.ව. 4.00 දක්වා</p>
+    <p class="small">(පෝරුව මංගලය පෙ.ව. 10.00 ට)</p>
+
+    <br>
+
+    <div class="section-title">ස්ථානය</div>
+    <p>Golden Rose Banquet Hall</p>
+
+    <a href="https://maps.app.goo.gl/bYXpzadK8kzJ4KHY7" target="_blank" class="map-btn">
+      Location බලන්න
+    </a>
+
+    <br><br>
+
+    <p class="small">
+      මෙම සුභ අවස්ථාව සනසන්න ඔබගේ පැමිණීම අපි ආදරයෙන් ආරාධනා කරමු.
+    </p>
+
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="card">
+    <div class="section-title">අවස්ථාවට ඉතිරි කාලය</div>
+    <div id="countdown">Loading...</div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="card contact-card">
+    <div class="section-title">Contact Us</div>
+
+    <div class="contact-number">078 991 1314</div>
+    <div class="contact-number">071 341 4630</div>
+  </div>
+
+</div>
+
+<script>
+// COUNTDOWN
+const target = new Date("2026-06-04T08:00:00");
+
+function update(){
+  const now = new Date();
+  const diff = target - now;
+
+  if(diff <= 0){
+    document.getElementById("countdown").innerText = "අදයි!";
+    return;
+  }
+
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+
+  document.getElementById("countdown").innerText =
+    d+" දින "+h+" පැය "+m+" මිනිත්තු "+s+" තත්පර";
+}
+
+setInterval(update,1000);
+update();
+</script>
+
+</body>
+</html>
