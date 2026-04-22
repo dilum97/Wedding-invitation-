@@ -264,6 +264,108 @@ body{
   margin:10px 0;
 }
 
+/* HOTEL NAME HIGHLIGHT */
+.hotel-name-wrap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:16px auto;
+  padding:14px 28px;
+  border-radius:16px;
+  background: linear-gradient(135deg,
+    rgba(184,148,30,0.18) 0%,
+    rgba(212,175,55,0.08) 100%);
+  border:1.5px solid rgba(184,148,30,0.5);
+  box-shadow:
+    0 0 24px rgba(184,148,30,0.25),
+    inset 0 0 16px rgba(212,175,55,0.06);
+  position:relative;
+  overflow:visible;
+}
+
+/* subtle shimmer sweep */
+.hotel-name-wrap::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:16px;
+  background: linear-gradient(110deg,
+    transparent 30%,
+    rgba(255,255,255,0.07) 50%,
+    transparent 70%);
+  background-size:200% 100%;
+  animation: shimmerSweep 3s linear infinite;
+}
+@keyframes shimmerSweep{
+  0%  { background-position:200% 0; }
+  100%{ background-position:-200% 0; }
+}
+
+.hotel-name-text{
+  font-size:26px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  color: #8B6914;
+  text-shadow:
+    0 1px 0 rgba(255,220,100,0.25),
+    0 0 18px rgba(184,148,30,0.35);
+  font-family: 'Cormorant Garamond', serif;
+  position:relative;
+  z-index:1;
+}
+
+/* LOCATION PIN */
+.pin-icon{
+  flex-shrink:0;
+  position:relative;
+  z-index:1;
+  animation: pinBounce 1.8s ease-in-out infinite;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 4px 8px rgba(184,148,30,0.5));
+}
+.pin-icon svg{
+  width:32px;
+  height:32px;
+  display:block;
+}
+
+@keyframes pinBounce{
+  0%, 100%{
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 4px 8px rgba(184,148,30,0.5));
+  }
+  30%{
+    transform: translateY(-10px) scale(1.08);
+    filter: drop-shadow(0 12px 14px rgba(184,148,30,0.25));
+  }
+  50%{
+    transform: translateY(-6px) scale(1.04);
+  }
+  70%{
+    transform: translateY(-9px) scale(1.06);
+    filter: drop-shadow(0 10px 12px rgba(184,148,30,0.3));
+  }
+}
+
+/* pin shadow on ground */
+.pin-shadow{
+  width:10px;
+  height:4px;
+  background: radial-gradient(ellipse, rgba(184,148,30,0.35) 0%, transparent 80%);
+  border-radius:50%;
+  margin:-2px auto 0;
+  animation: shadowPulse 1.8s ease-in-out infinite;
+  position:relative;
+  z-index:1;
+}
+@keyframes shadowPulse{
+  0%, 100%{ transform:scaleX(1); opacity:0.6; }
+  30%{ transform:scaleX(0.5); opacity:0.2; }
+  50%{ transform:scaleX(0.7); opacity:0.35; }
+  70%{ transform:scaleX(0.55); opacity:0.25; }
+}
+
 .time-text{
   color: var(--peach);
   font-size:16px;
@@ -279,30 +381,40 @@ body{
   font-style:italic;
 }
 
-/* MAP BUTTON */
+/* HOTEL BLOCK wrapper */
+.hotel-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin:16px 0;
+}
+
+/* MAP BUTTON — smaller */
 .map-btn{
-  display:inline-block;
-  padding:14px 40px;
-  margin-top:20px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 22px;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   color:#000;
   text-decoration:none;
   font-weight:700;
-  font-size:16px;
-  border-radius:12px;
+  font-size:13px;
+  border-radius:20px;
   font-family: 'Montserrat', sans-serif;
-  letter-spacing:1px;
-  box-shadow:0 8px 25px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  letter-spacing:0.8px;
+  box-shadow:0 5px 16px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
   transition: all 0.3s ease;
   text-transform:uppercase;
-  border:2px solid rgba(255,255,255,0.2);
+  border:1.5px solid rgba(255,255,255,0.2);
 }
 .map-btn:hover{
-  transform: translateY(-3px) scale(1.05);
-  box-shadow:0 12px 35px rgba(212,175,55,0.6), inset 0 1px 0 rgba(255,255,255,0.4);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:0 8px 22px rgba(212,175,55,0.55), inset 0 1px 0 rgba(255,255,255,0.4);
   background: linear-gradient(135deg, var(--gold-light), var(--gold));
 }
-.map-btn:active{ transform: translateY(-1px) scale(1.02); }
+.map-btn:active{ transform: translateY(0) scale(1.01); }
 
 /* CALENDAR */
 .calendar-card{
@@ -445,7 +557,7 @@ body{
   display:flex;
   justify-content:center;
   gap:25px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   margin-top:20px;
 }
 
@@ -509,8 +621,11 @@ body{
   .highlight{ font-size:22px; }
   .countdown-number{ font-size:36px; }
   #countdown{ gap:15px; }
-  .countdown-item{ min-width:70px; padding:15px 10px; }
-  .map-btn{ padding:12px 30px; font-size:14px; }
+  #countdown{ gap:8px; flex-wrap:nowrap; }
+  .countdown-item{ min-width:0; flex:1; padding:12px 6px; }
+  .countdown-number{ font-size:28px; }
+  .countdown-label{ font-size:9px; letter-spacing:0.5px; }
+  .map-btn{ padding:7px 18px; font-size:12px; }
   .calendar-grid{ gap:5px; }
   .calendar-day{ font-size:14px; border-radius:8px; }
   .calendar-day.wedding-day{ font-size:18px; }
@@ -582,16 +697,38 @@ body{
 
     <br>
 
-    <p class="location-text reveal reveal-d7">Golden Rose Hotel</p>
+    <div class="hotel-block reveal reveal-d7">
+      <div class="hotel-name-wrap">
+        <div>
+          <div class="pin-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="pinGrad" cx="40%" cy="35%" r="60%">
+                  <stop offset="0%"   stop-color="#F4E4C1"/>
+                  <stop offset="50%"  stop-color="#D4AF37"/>
+                  <stop offset="100%" stop-color="#7A5C0A"/>
+                </radialGradient>
+              </defs>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                    fill="url(#pinGrad)"/>
+              <circle cx="12" cy="9" r="2.8" fill="rgba(0,0,0,0.25)"/>
+              <circle cx="12" cy="9" r="1.8" fill="#FFF8E1" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="pin-shadow"></div>
+        </div>
+        <span class="hotel-name-text">Golden Rose Hotel</span>
+      </div>
 
-    <a href="https://maps.app.goo.gl/bYXpzadK8kzJ4KHY7" target="_blank" class="map-btn reveal reveal-d7">
-      View Location
-    </a>
+      <a href="https://maps.app.goo.gl/bYXpzadK8kzJ4KHY7" target="_blank" class="map-btn">
+        View Location
+      </a>
+    </div>
 
     <br><br><br>
 
     <p class="message-text reveal reveal-d7">
-      හෝටල් පරිශ්‍රයේ පැවැත්වෙන මෙම සුභ අවස්ථාව සඳහා ඔබගේ පැමිණීම අපි ආදරයෙන් සහ ගෞරවයෙන් බලාපොරොත්තු වන්නෙමු.
+      හි පැවැත්වෙන මෙම සුභ අවස්ථාව සඳහා ඔබගේ පැමිණීම අපි ආදරයෙන් සහ ගෞරවයෙන් බලාපොරොත්තු වන්නෙමු.
     </p>
   </div>
 
